@@ -2,6 +2,9 @@ import { createApp } from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
+import '../scss/custom.scss';
+import 'bootstrap';
+
 import store from './store';
 import router from './router';
 import App from './App';
