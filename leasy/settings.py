@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third party
     "rest_framework",
+    "rest_framework.authtoken",
     "corsheaders",
     # local
     "accounts.apps.AccountsConfig",
@@ -87,6 +88,19 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "leasy.wsgi.application"
+
+
+# REST Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSIONS_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+        # "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
 
 
 # Database
