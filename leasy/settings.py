@@ -43,9 +43,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third party
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "corsheaders",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     "rest_framework",
     "rest_framework.authtoken",
-    "corsheaders",
     # local
     "accounts.apps.AccountsConfig",
     "apis.apps.ApisConfig",
@@ -82,6 +87,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -119,6 +125,10 @@ DATABASES = {
 
 # User authentication
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SITE_ID = 1  # django-allauth requires a default site
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
