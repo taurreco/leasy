@@ -18,23 +18,22 @@ from django.urls import path, re_path, include
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from leasy.views import frontend
+from leasy.views import frontend, api_redirect
 
 api_urls = [
-    path("", include("rest_framework.urls")),
-    path("dj-rest-auth/", include("dj_rest_auth.urls")),
-    path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    path("", api_redirect),
+    path("", include("dj_rest_auth.urls")),
+    path("registration/", include("dj_rest_auth.registration.urls")),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
-    path("v1/users/", include("accounts.urls")),
+    path("users/", include("accounts.urls")),
 ]
-vue_urls = [re_path(r".*", frontend)]
+
+frontend_urls = [path("", frontend)]
 
 urlpatterns = [
-    # TODO make sure no-slash redirects to slash
     path("admin/", admin.site.urls),
-    path("api/", include(api_urls)),
-    # TODO find better way to send other urls to client
-    path("", include(vue_urls), {"resource": ""}),
-    path("<path:resource>", include(vue_urls)),
+    path("api/v1/", include(api_urls)),
+    path("", include(frontend_urls), {"resource": ""}),
+    path("<path:resource>", include(frontend_urls)),
 ]

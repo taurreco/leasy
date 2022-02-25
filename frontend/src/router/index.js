@@ -9,7 +9,8 @@ const routes = [
   { path: "/", component: Home },
   { path: "/contact", component: Contact },
   { path: "/listings", component: Listings },
-  { path: "/login", component: Login }
+  { path: "/login", component: Login },
+  { path: '/:pathMatch(.*)*', redirect: "/" },
 ];
 
 const router = createRouter({
