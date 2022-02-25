@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     # local
     "accounts.apps.AccountsConfig",
-    "apis.apps.ApisConfig",
 ]
 
 MIDDLEWARE = [
