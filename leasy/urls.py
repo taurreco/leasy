@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from leasy.views import frontend
 
-# vue_urls = [re_path(r".*", client)]
-vue_urls = [path("", client)]
+vue_urls = [re_path(r".*", frontend)]
 
 urlpatterns = [
     # TODO make sure no-slash redirects to slash
