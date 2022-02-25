@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
-from leasy.views import frontend
+from leasy.views import client
 
-vue_urls = [re_path(r".*", frontend)]
+vue_urls = [re_path(r".*", client)]
 
 urlpatterns = [path("admin/", admin.site.urls), path("", include(vue_urls))]
