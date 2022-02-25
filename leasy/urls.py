@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from leasy.views import client
 
-vue_urls = [re_path(r".*", client)]
+# vue_urls = [re_path(r".*", client)]
+vue_urls = [path("", client)]
 
 urlpatterns = [
+    # TODO make sure no-slash redirects to slash
     path("admin/", admin.site.urls),
     path("api/v1/", include("apis.urls")),
     path("api-auth/", include("rest_framework.urls")),
@@ -27,5 +29,7 @@ urlpatterns = [
     path(
         "api/v1/dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")
     ),
-    path("", include(vue_urls)),
+    # TODO find better way to send other urls to client
+    path("", include(vue_urls), {"resource": ""}),
+    path("<path:resource>", include(vue_urls)),
 ]
