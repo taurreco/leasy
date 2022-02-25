@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # third party
     "rest_framework",
     # local
+    "accounts.apps.AccountsConfig",
     "apis.apps.ApisConfig",
 ]
 
