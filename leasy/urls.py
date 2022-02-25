@@ -22,7 +22,7 @@ from leasy.views import frontend, api_redirect
 
 api_urls = [
     path("", api_redirect),
-    path("", include("dj_rest_auth.urls")),
+    path("", include("dj_rest_auth.urls")),  # login/ and logout/ endpoints
     path("registration/", include("dj_rest_auth.registration.urls")),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
