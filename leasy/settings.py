@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "corsheaders",
+    "drf_spectacular",
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "rest_framework",
@@ -105,6 +106,14 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# API Schema Documentation
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Leasy",
+    "DESCRIPTION": "A website to connect buyers and sellers in the subleasing market",
+    "VERSION": "1.0.0",
 }
 
 
