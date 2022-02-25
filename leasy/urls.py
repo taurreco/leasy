@@ -15,18 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
 from leasy.views import frontend
 
+api_urls = [
+    path("", include("rest_framework.urls")),
+    path("dj-rest-auth/", include("dj_rest_auth.urls")),
+    path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
+    path("v1/users/", include("accounts.urls")),
+]
 vue_urls = [re_path(r".*", frontend)]
 
 urlpatterns = [
     # TODO make sure no-slash redirects to slash
     path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
-    path("api/v1/dj-rest-auth/", include("dj_rest_auth.urls")),
-    path(
-        "api/v1/dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")
-    ),
+    path("api/", include(api_urls)),
     # TODO find better way to send other urls to client
     path("", include(vue_urls), {"resource": ""}),
     path("<path:resource>", include(vue_urls)),
