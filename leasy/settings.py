@@ -134,9 +134,31 @@ DATABASES = {
 # User authentication
 AUTH_USER_MODEL = "accounts.CustomUser"
 
+## django-allauth settings
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # Default: 'username'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1  # Default: 3
+ACCOUNT_EMAIL_REQUIRED = True  # Default: False
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Default: 'optional'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10  # Default: 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300  # Default 300
+# ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"  # Default: '/'
+ACCOUNT_USERNAME_REQUIRED = False  # Default: True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+SITE_ID = 1  # django-allauth requires a default site
+
+# dj-rest-auth settings
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer"
+}
+
+REST_AUTH_SERIALIZERS = {
+    "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer"
+}
+
+# Email
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-SITE_ID = 1  # django-allauth requires a default site
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
