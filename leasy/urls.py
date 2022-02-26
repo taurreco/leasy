@@ -14,26 +14,69 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from dj_rest_auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeView,
+    PasswordResetView,
+    PasswordResetConfirmView,
+)
+from dj_rest_auth.registration.views import (
+    RegisterView,
+    ResendEmailVerificationView,
+    VerifyEmailView,
+)
 
-from leasy.views import frontend, api_redirect
+from leasy.views import frontend, api_redirect, confirm_email_view
 
 api_urls = [
-    path("", api_redirect),
-    path("", include("dj_rest_auth.urls")),  # login/ and logout/ endpoints
-    path("registration/", include("dj_rest_auth.registration.urls")),
+    # dj-rest-auth endpoints
+    # https://dj-rest-auth.readthedocs.io/en/latest/api_endpoints.html
+    path("password/change/", PasswordChangeView.as_view(), name="rest_password_change"),
+    path("password/reset/", PasswordResetView.as_view(), name="rest_password_reset"),
+    path(
+        "password/reset/confirm/",
+        PasswordResetConfirmView.as_view(),
+        name="rest_password_reset_confirm",
+    ),
+    path("login/", LoginView.as_view(), name="rest_login"),
+    path("logout/", LogoutView.as_view(), name="rest_logout"),
+    # dj-rest-auth registration endpoints
+    # https://dj-rest-auth.readthedocs.io/en/latest/api_endpoints.html#registration
+    path("register/", RegisterView.as_view(), name="rest_register"),
+    path(
+        "resend-email/", ResendEmailVerificationView.as_view(), name="rest_resend_email"
+    ),
+    path(
+        "account-email-verification-sent/",
+        VerifyEmailView.as_view(),
+        name="account_email_verification_sent",
+    ),
+    re_path(
+        r"^account-confirm-email/(?P<key>[-:\w]+)/$",
+        confirm_email_view,
+        name="account_confirm_email",
+    ),
+    path("", api_redirect),  # redirects "" to "docs/"
+    # spectacular
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
+    # custom user
     path("users/", include("accounts.urls")),
 ]
 
-frontend_urls = [path("", frontend)]
+frontend_urls = [
+    path("", frontend, name="homepage"),
+    path("login/", frontend, name="login"),
+    path("logout/", frontend, name="logout"),
+]
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/", include(api_urls)),
+    path("api/v1/", include(api_urls), name="api"),
     path("", include(frontend_urls), {"resource": ""}),
     path("<path:resource>", include(frontend_urls)),
 ]
