@@ -74,7 +74,7 @@ CORS_ORIGIN_WHITELIST = (
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
-ROOT_URL = "http://127.0.0.1:8000"
+ROOT_URL = "http://127.0.0.1:8000"  # TODO: make this only for development
 
 ROOT_URLCONF = "leasy.urls"
 
@@ -112,6 +112,7 @@ REST_FRAMEWORK = {
 }
 
 # API Schema Documentation
+# https://drf-spectacular.readthedocs.io/en/latest/settings.html
 SPECTACULAR_SETTINGS = {
     "TITLE": "Leasy",
     "DESCRIPTION": "A website to connect buyers and sellers in the subleasing market",
@@ -135,8 +136,11 @@ DATABASES = {
 
 # User authentication
 AUTH_USER_MODEL = "accounts.CustomUser"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "homepage"
 
-## django-allauth settings (https://django-allauth.readthedocs.io/en/latest/configuration.html)
+## django-allauth settings
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = "email"  # Default: 'username'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1  # Default: 3
@@ -147,7 +151,7 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300  # Default 300
 ACCOUNT_USERNAME_REQUIRED = False  # Default: True
 SITE_ID = 1  # django-allauth requires a default site
 
-# dj-rest-auth settings
+## dj-rest-auth settings
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer"
 }
