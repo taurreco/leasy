@@ -30,7 +30,7 @@ from dj_rest_auth.registration.views import (
     VerifyEmailView,
 )
 
-from leasy.views import frontend, api_redirect, confirm_email_view
+from .views import frontend, api_redirect, confirm_email_view
 
 api_urls = [
     # dj-rest-auth endpoints
