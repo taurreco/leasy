@@ -23,9 +23,10 @@ def confirm_email_view(request, key):
         key (String): the verification key to confirm the email
 
     Returns:
-        HttpResponse: a redirect to the homepage
+        HttpResponse: a redirect to the login page
     """
-    url = ROOT_URL + reverse("rest_verify_email")
-    requests.post(url, data={"key": key})
-    response = redirect("/")
+    confirm_email_url = ROOT_URL + reverse("account_email_verification_sent")
+    requests.post(confirm_email_url, data={"key": key})
+
+    response = redirect("login")
     return response
