@@ -156,7 +156,6 @@ SITE_ID = 1  # django-allauth requires a default site
 
 ## dj-rest-auth settings
 # https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
-REST_AUTH_PW_RESET_USE_SITES_DOMAIN = True  # Default: False
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer"
