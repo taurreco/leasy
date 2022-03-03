@@ -32,7 +32,9 @@
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <main class="container-fluid vh-100">
+      <router-view></router-view>
+    </main>
     <footer class="bg-dark container-fluid text-light position-absolute bottom-0">
       <p class="text-center m-0 p-2">&copy; Leasy. All rights reserved.</p>
     </footer>
@@ -40,8 +42,16 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: 'App',
+  async mounted() {
+    await this.loadEndpoints();
+  },
+  methods: {
+    ...mapActions("accounts", "loadEndpoints")
+  }
 }
 </script>
 
