@@ -136,8 +136,8 @@ DATABASES = {
 
 # User authentication
 AUTH_USER_MODEL = "accounts.CustomUser"
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "homepage"
+# LOGIN_URL = "login"
+# LOGIN_REDIRECT_URL = "homepage"
 
 ## django-allauth settings
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -146,6 +146,10 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"  # Default: 'username'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1  # Default: 3
 ACCOUNT_EMAIL_REQUIRED = True  # Default: False
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Default: 'optional'
+ACCOUNT_ADAPTER = (
+    "accounts.adapter.CustomAccountAdapter"  # for changing confirm email url
+)
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # Default: False
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10  # Default: 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300  # Default 300
 ACCOUNT_USERNAME_REQUIRED = False  # Default: True
