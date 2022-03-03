@@ -12,7 +12,7 @@ from dj_rest_auth.registration.views import (
     VerifyEmailView,
 )
 
-from .views import confirm_email_view
+from .views import account_endpoints, confirm_email_view
 
 
 user_auth_urls = [
@@ -46,4 +46,4 @@ user_auth_urls = [
 ]
 
 app_name = "accounts"
-urlpatterns = [path("", include(user_auth_urls))]
+urlpatterns = [path("", account_endpoints), path("", include(user_auth_urls))]

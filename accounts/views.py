@@ -2,8 +2,28 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
 from django.urls import reverse
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 import requests
+
+
+@api_view()
+def account_endpoints(request):
+    endpoints = {
+        "account-email-verification-sent": reverse(
+            "accounts:account_email_verification_sent"
+        ),
+        "login": reverse("accounts:rest_login"),
+        "logout": reverse("accounts:rest_logout"),
+        "password-change": reverse("accounts:rest_password_change"),
+        "password-reset": reverse("accounts:rest_password_reset"),
+        "password-reset-confirm": reverse("accounts:rest_password_reset_confirm"),
+        "register": reverse("accounts:rest_password_change"),
+        "resend-email": reverse("accounts:rest_resend_email"),
+    }
+
+    return Response(endpoints)
 
 
 def confirm_email_view(request, key):
