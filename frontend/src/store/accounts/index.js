@@ -71,7 +71,7 @@ const accounts = {
   actions: {
     async loadEndpoints({ commit }) {
       const endpoints = (await axios.get(ACCOUNT_ENDPOINTS_ENDPOINT)).data;
-      commit('setEndpointAccountEmailVerification', endpoints["account-email-verification-sent"]);
+      commit('setEndpointAccountEmailVerificationSent', endpoints["account-email-verification-sent"]);
       commit('setEndpointLogin', endpoints["login"]);
       commit('setEndpointLogout', endpoints["logout"]);
       commit('setEndpointPasswordChange', endpoints["password-change"]);

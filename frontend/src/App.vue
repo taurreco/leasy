@@ -50,7 +50,7 @@ export default {
     await this.loadEndpoints();
   },
   methods: {
-    ...mapActions("accounts", "loadEndpoints")
+    ...mapActions("accounts", ["loadEndpoints"])
   }
 }
 </script>
