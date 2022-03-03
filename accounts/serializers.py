@@ -17,14 +17,3 @@ class CustomRegisterSerializer(RegisterSerializer):
             "email": self.validated_data.get("email", ""),
             "password1": self.validated_data.get("password1", ""),
         }
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = (
-            "id",
-            "first_name",
-            "last_name",
-            "email",
-        )
