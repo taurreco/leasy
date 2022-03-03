@@ -1,3 +1,4 @@
+# https://django-allauth.readthedocs.io/en/latest/advanced.html#custom-redirects
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from allauth.account.adapter import DefaultAccountAdapter
