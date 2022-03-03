@@ -74,7 +74,6 @@ CORS_ORIGIN_WHITELIST = (
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
-ROOT_URL = "http://127.0.0.1:8000"  # TODO: make this only for development
 
 ROOT_URLCONF = "leasy.urls"
 
@@ -136,8 +135,8 @@ DATABASES = {
 
 # User authentication
 AUTH_USER_MODEL = "accounts.CustomUser"
-# LOGIN_URL = "login"
-# LOGIN_REDIRECT_URL = "homepage"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "homepage"
 
 ## django-allauth settings
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -156,6 +155,9 @@ ACCOUNT_USERNAME_REQUIRED = False  # Default: True
 SITE_ID = 1  # django-allauth requires a default site
 
 ## dj-rest-auth settings
+# https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
+REST_AUTH_PW_RESET_USE_SITES_DOMAIN = True  # Default: False
+
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer"
 }
