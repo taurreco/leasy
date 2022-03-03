@@ -16,8 +16,9 @@ def confirm_email_view(request, key):
     Returns:
         HttpResponse: a redirect to the login page
     """
-    confirm_email_url = get_current_site(request) + reverse(
-        "accounts:account_email_verification_sent"
+
+    confirm_email_url = request.build_absolute_uri(
+        reverse("accounts:account_email_verification_sent")
     )
     requests.post(confirm_email_url, data={"key": key})
 
