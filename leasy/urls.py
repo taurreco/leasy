@@ -35,7 +35,7 @@ frontend_urls = [
     path("login/", frontend, name="login"),
     path("logout/", frontend, name="logout"),
     re_path(
-        r"^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$",
+        r"^account/password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$",
         frontend,
         name="password_reset_confirm",
     ),
