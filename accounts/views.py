@@ -1,9 +1,9 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
 from django.urls import reverse
 
-import requests
 
-from leasy.settings import ROOT_URL
+import requests
 
 
 def confirm_email_view(request, key):
@@ -16,7 +16,9 @@ def confirm_email_view(request, key):
     Returns:
         HttpResponse: a redirect to the login page
     """
-    confirm_email_url = ROOT_URL + reverse("accounts:account_email_verification_sent")
+    confirm_email_url = get_current_site(request) + reverse(
+        "accounts:account_email_verification_sent"
+    )
     requests.post(confirm_email_url, data={"key": key})
 
     response = redirect("login")
