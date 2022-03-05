@@ -91,7 +91,7 @@ const accounts = {
           commit('setCurrentUser', null);
         }
 
-      };
+      }
 
       const userData = (await axios.get(getters.getEndpointCurrentUserDetail)).data;
 

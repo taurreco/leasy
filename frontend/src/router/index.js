@@ -6,12 +6,14 @@ import Listings from '../views/Listings';
 import Login from '../views/Login';
 import Account from '../views/Account';
 import PasswordResetConfirm from '../views/PasswordResetConfirm';
+import Register from '../views/Register';
 
 const routes = [
   { path: "/", component: Home },
   { path: "/contact", component: Contact },
   { path: "/listings", component: Listings },
   { path: "/login", component: Login },
+  { path: "/register", component: Register },
   {
     path: "/account", component: Account, children: [
       { path: "/password-reset/confirm/:userId/:token", component: PasswordResetConfirm },
