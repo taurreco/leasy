@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-const ACCOUNT_ENDPOINTS_ENDPOINT = "/api/v1/accounts/";
+const ACCOUNT_ENDPOINTS_ENDPOINT = "/api/v1/accounts/endpoints/";
 
 const accounts = {
   namespaced: true,
   state() {
     return {
+      currentUser: null, // firstName, lastName, email
       endpointAccountEmailVerificationSent: '',
+      endpointCurrentUser: '',
       endpointLogin: '',
       endpointLogout: '',
       endpointPasswordChange: '',
@@ -17,6 +19,12 @@ const accounts = {
     };
   },
   getters: {
+    getCurrentUser(state) {
+      return state.currentUser;
+    },
+    getEndpointCurrentUserDetail(state) {
+      return state.endpointCurrentUserDetail;
+    },
     getEndpointAccountEmailVerificationSent(state) {
       return state.endpointAccountEmailVerificationSent;
     },
@@ -43,8 +51,14 @@ const accounts = {
     },
   },
   mutations: {
+    setCurrentUser(state, user) {
+      state.currentUser = user;
+    },
     setEndpointAccountEmailVerificationSent(state, endpoint) {
       state.endpointAccountEmailVerificationSent = endpoint;
+    },
+    setEndpointCurrentUserDetail(state, endpoint) {
+      state.endpointCurrentUserDetail = endpoint;
     },
     setEndpointLogin(state, endpoint) {
       state.endpointLogin = endpoint;
@@ -69,7 +83,25 @@ const accounts = {
     },
   },
   actions: {
-    async loadEndpoints({ commit }) {
+    async loadCurrentUser({ commit, getters, dispatch }) {
+      if (!getters.getEndpointCurrentUserDetail) {
+        await dispatch('loadEndpoints');
+
+        if (!getters.getEndpointCurrentUserDetail) {
+          commit('setCurrentUser', null);
+        }
+
+      };
+
+      const userData = (await axios.get(getters.getEndpointCurrentUserDetail)).data;
+
+      commit('setCurrentUser', {
+        "firstName": userData["first_name"],
+        "lastName": userData["last_name"],
+        "email": userData["email"]
+      });
+    },
+    async loadEndpoints({ commit, dispatch }) {
       const endpoints = (await axios.get(ACCOUNT_ENDPOINTS_ENDPOINT)).data;
       commit('setEndpointAccountEmailVerificationSent', endpoints["account-email-verification-sent"]);
       commit('setEndpointLogin', endpoints["login"]);
@@ -79,9 +111,20 @@ const accounts = {
       commit('setEndpointPasswordResetConfirm', endpoints["password-reset-confirm"]);
       commit('setEndpointRegister', endpoints["register"]);
       commit('setEndpointResendEmail', endpoints["resend-email"]);
+
+      if (endpoints["current-user-detail"]) {
+        commit('setEndpointCurrentUserDetail', endpoints["current-user-detail"]);
+        await dispatch('loadCurrentUser');
+      }
     },
-    async login({ getters }, { email, password }) {
+    async login({ getters, dispatch }, { email, password }) {
       const response = await axios.post(getters.getEndpointLogin, { email, password });
+
+      if (response.data && response.data.key) {
+        await dispatch("loadEndpoints");
+        await dispatch("loadCurrentUser");
+      }
+
       return response;
     },
     async logout({ getters }) {
