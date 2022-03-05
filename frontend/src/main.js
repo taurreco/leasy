@@ -8,6 +8,9 @@ import 'bootstrap';
 import store from './store';
 import router from './router';
 import App from './App';
+import setupInterceptors from './common/interceptors';
+
+setupInterceptors();
 
 const app = createApp(App);
 app.use(store);
