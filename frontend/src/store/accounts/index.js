@@ -82,11 +82,11 @@ const accounts = {
     },
     async login({ getters }, { email, password }) {
       const response = await axios.post(getters.getEndpointLogin, { email, password });
-      return response.status;
+      return response;
     },
     async logout({ getters }) {
       const response = await axios.post(getters.getEndpointLogout);
-      return response.status;
+      return response;
     },
     async changePassword({ getters }, { newPassword1, newPassword2 }) {
       const data = {
@@ -94,29 +94,29 @@ const accounts = {
         "new_password2": newPassword2,
       };
       const response = await axios.post(getters.EndpointChangePassword, data);
-      return response.status;
+      return response;
     },
     async resetPassword({ getters }, { email }) {
       const response = await axios.post(getters.getEndpointPasswordReset, { email });
-      return response.status;
+      return response;
     },
     async resetPasswordConfirm({ getters }, { newPassword1, newPassword2, uid, token }) {
-      data = {
+      const data = {
         "new_password1": newPassword1,
         "new_password2": newPassword2,
         uid,
         token
       };
       const response = await axios.post(getters.getEndpointPasswordResetConfirm, data);
-      return response.status;
+      return response;
     },
     async register({ getters }, { email, password1, password2 }) {
       const response = await axios.post(getters.getEndpointRegister, { email, password1, password2 });
-      return response.status;
+      return response;
     },
     async resendEmail({ getters }, { email }) {
       const response = await axios.post(getters.getEndpointRegister, { email });
-      return response.status;
+      return response;
     },
   }
 
