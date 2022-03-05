@@ -4,13 +4,27 @@ from django.urls import reverse
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 import requests
+
+from .models import CustomUser
+from .serializers import CustomUserSerializer
+
+
+class CustomUserViewSet(ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
 
 
 @api_view()
 def account_endpoints(request):
+    user = request.user
+
+    user_detail_url = user.api_detail_url if user.is_authenticated else ""
+
     endpoints = {
+        "current-user-detail": user_detail_url,
         "account-email-verification-sent": reverse(
             "accounts:account_email_verification_sent"
         ),

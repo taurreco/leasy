@@ -12,7 +12,9 @@ from dj_rest_auth.registration.views import (
     VerifyEmailView,
 )
 
-from .views import account_endpoints, confirm_email_view
+from rest_framework.routers import DefaultRouter
+
+from .views import CustomUserViewSet, account_endpoints, confirm_email_view
 
 
 user_auth_urls = [
@@ -45,5 +47,12 @@ user_auth_urls = [
     ),
 ]
 
+router = DefaultRouter()
+router.register("users", CustomUserViewSet, basename="users")
+
 app_name = "accounts"
-urlpatterns = [path("", account_endpoints), path("", include(user_auth_urls))]
+urlpatterns = [
+    path("endpoints/", account_endpoints),
+    path("", include(user_auth_urls)),
+    path("", include(router.urls)),
+]

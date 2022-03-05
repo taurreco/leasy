@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class CustomUser(AbstractUser):
@@ -9,3 +10,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(unique=False, max_length=100)
     email = models.EmailField(("email address"), unique=True)
     # TODO add unique phone number as well?
+
+    @property
+    def api_detail_url(self):
+        return reverse("accounts:users-detail", args=[self.pk])
