@@ -12,6 +12,9 @@ import setupInterceptors from './common/interceptors';
 
 setupInterceptors();
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
 const app = createApp(App);
 app.use(store);
 app.use(router);
