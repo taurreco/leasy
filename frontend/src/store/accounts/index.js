@@ -153,8 +153,17 @@ const accounts = {
       const response = await axios.post(getters.getEndpointPasswordResetConfirm, data);
       return response;
     },
-    async register({ getters }, { email, password1, password2 }) {
-      const response = await axios.post(getters.getEndpointRegister, { email, password1, password2 });
+    async register({ getters }, { email, password1, password2, firstName, lastName }) {
+
+      const data = {
+        email,
+        password1,
+        password2,
+        "first_name": firstName,
+        "last_name": lastName
+      };
+
+      const response = await axios.post(getters.getEndpointRegister, data);
       return response;
     },
     async resendEmail({ getters }, { email }) {
