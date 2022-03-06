@@ -11,10 +11,13 @@ class CustomLoginSerializer(LoginSerializer):
 
 class CustomRegisterSerializer(RegisterSerializer):
     username = None
-    # email = serializers.EmailField(required=True)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
 
     def get_cleaned_data(self):
         return {
+            "first_name": self.validated_data.get("first_name", ""),
+            "last_name": self.validated_data.get("last_name", ""),
             "email": self.validated_data.get("email", ""),
             "password1": self.validated_data.get("password1", ""),
         }
