@@ -165,6 +165,10 @@ REST_AUTH_SERIALIZERS = {
     "LOGIN_SERIALIZER": "accounts.serializers.CustomLoginSerializer"
 }
 
+REST_AUTH_REGISTER_PERMISSION_CLASSES = {
+    "rest_framework.permissions.AllowAny",
+}
+
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
