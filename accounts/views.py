@@ -33,7 +33,7 @@ def account_endpoints(request):
         "password-change": reverse("accounts:rest_password_change"),
         "password-reset": reverse("accounts:rest_password_reset"),
         "password-reset-confirm": reverse("accounts:rest_password_reset_confirm"),
-        "register": reverse("accounts:rest_password_change"),
+        "register": reverse("accounts:rest_register"),
         "resend-email": reverse("accounts:rest_resend_email"),
     }
 
