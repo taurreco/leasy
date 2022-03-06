@@ -15,7 +15,7 @@
                   :class="{'border-danger': v$.firstName.$error && v$.$error}"
                   v-model="v$.firstName.$model">
                 <p v-if="v$.firstName.$error && v$.$error" class="text-danger">
-                  <small>Please enter a valid email address.</small>
+                  <small>First Name is required.</small>
                 </p>
               </div>
               <div class="col m-0 ps-1 p-0">
@@ -24,7 +24,7 @@
                   :class="{'border-danger': v$.lastName.$error && v$.$error}"
                   v-model="v$.lastName.$model">
                 <p v-if="v$.lastName.$error && v$.$error" class="text-danger">
-                  <small>Please enter a valid email address.</small>
+                  <small>Last Name is required.</small>
                 </p>
               </div>
             </div>
@@ -42,8 +42,8 @@
               <input type="password" class="form-control" id="password1" placeholder="Password" 
                 :class="{'border-danger': (v$.password1.$error && v$.$error) }"
                 v-model="v$.password1.$model">
-              <p v-if="v$.password1.$error && v$.error" class="text-danger">
-                <small>Passwords must be greater than {{v$.password.minLength}}</small>
+              <p v-if="v$.password1.$error && v$.$error" class="text-danger">
+                <small>Passwords must be greater than {{v$.password1.minLength.$params.min}} characters.</small>
               </p>
             </div>
             <div class="m-3">
@@ -51,8 +51,8 @@
               <input type="password" class="form-control" id="password2" placeholder="Confirm Password" 
                 :class="{'border-danger': (v$.password2.$error && v$.$error) }"
                 v-model="v$.password2.$model">
-              <p v-if="v$.password2.$error && v$.error" class="text-danger">
-                <small>Passwords must be greater than {{v$.password.minLength}}</small>
+              <p v-if="v$.password2.$error && v$.$error" class="text-danger">
+                <small>Passwords must match.</small>
               </p>
             </div>
             <div class="m-3 mx-5 text-center">
@@ -115,14 +115,23 @@ export default {
       }
 
       const email = this.email;
-      const password = this.password;
-      const response = await this.register({email, password}).catch(() => {
-        this.badCredentials = true;
+      const password1 = this.password1;
+      const password2 = this.password2;
+      const firstName = this.firstName;
+      const lastName = this.lastName;
+
+      const response = await this.register({
+        email, 
+        password1, 
+        password2, 
+        firstName, 
+        lastName
       });
 
       if (response) {
         this.$router.push("/");
       }
+
     },
     ...mapActions("accounts", ["register"])
   }
