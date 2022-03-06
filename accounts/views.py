@@ -1,7 +1,10 @@
+from lib2to3.pgen2.parse import ParseError
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
 from django.urls import reverse
 
+
+from allauth.utils import email_address_exists
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -28,6 +31,7 @@ def account_endpoints(request):
         "account-email-verification-sent": reverse(
             "accounts:account_email_verification_sent"
         ),
+        "check-email-exists": reverse("accounts:check_email_exists"),
         "login": reverse("accounts:rest_login"),
         "logout": reverse("accounts:rest_logout"),
         "password-change": reverse("accounts:rest_password_change"),
@@ -58,3 +62,14 @@ def confirm_email_view(request, key):
 
     response = redirect("login")
     return response
+
+
+@api_view(["POST"])
+def check_email_exists_view(request):
+    email = request.data["email"]
+    if not email:
+        raise ParseError("email must be included.")
+
+    email_exists = email_address_exists(email)
+
+    return Response({"email_exists": email_exists})

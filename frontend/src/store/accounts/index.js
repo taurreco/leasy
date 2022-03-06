@@ -8,6 +8,7 @@ const accounts = {
     return {
       currentUser: null, // firstName, lastName, email
       endpointAccountEmailVerificationSent: '',
+      endpointCheckEmailExists: '',
       endpointCurrentUser: '',
       endpointLogin: '',
       endpointLogout: '',
@@ -22,11 +23,14 @@ const accounts = {
     getCurrentUser(state) {
       return state.currentUser;
     },
-    getEndpointCurrentUserDetail(state) {
-      return state.endpointCurrentUserDetail;
-    },
     getEndpointAccountEmailVerificationSent(state) {
       return state.endpointAccountEmailVerificationSent;
+    },
+    getEndpointCheckEmailExists(state) {
+      return state.endpointCheckEmailExists;
+    },
+    getEndpointCurrentUserDetail(state) {
+      return state.endpointCurrentUserDetail;
     },
     getEndpointLogin(state) {
       return state.endpointLogin;
@@ -56,6 +60,9 @@ const accounts = {
     },
     setEndpointAccountEmailVerificationSent(state, endpoint) {
       state.endpointAccountEmailVerificationSent = endpoint;
+    },
+    setEndpointCheckEmailExists(state, endpoint) {
+      state.endpointCheckEmailExists = endpoint;
     },
     setEndpointCurrentUserDetail(state, endpoint) {
       state.endpointCurrentUserDetail = endpoint;
@@ -104,6 +111,7 @@ const accounts = {
     async loadEndpoints({ commit, dispatch }) {
       const endpoints = (await axios.get(ACCOUNT_ENDPOINTS_ENDPOINT)).data;
       commit('setEndpointAccountEmailVerificationSent', endpoints["account-email-verification-sent"]);
+      commit('setEndpointCheckEmailExists', endpoints["check-email-exists"]);
       commit('setEndpointLogin', endpoints["login"]);
       commit('setEndpointLogout', endpoints["logout"]);
       commit('setEndpointPasswordChange', endpoints["password-change"]);
@@ -170,6 +178,10 @@ const accounts = {
       const response = await axios.post(getters.getEndpointRegister, { email });
       return response;
     },
+    async checkEmailExists({ getters }, email) {
+      const response = await axios.post(getters.getEndpointCheckEmailExists, { email });
+      if (response) return response.data["email_exists"];
+    }
   }
 
 };

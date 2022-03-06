@@ -34,7 +34,8 @@
                 :class="{'border-danger': v$.email.$error && v$.$error}"
                 v-model="v$.email.$model">
               <p v-if="v$.email.$error && v$.$error" class="text-danger">
-                <small>Please enter a valid email address.</small>
+                <small v-if="v$.email.isUnique.$invalid">Email address is already taken.</small>
+                <small v-else>Please enter a valid email address.</small>
               </p>
             </div>
             <div class="m-3">
@@ -72,7 +73,7 @@
 <script>
 import { mapActions } from "vuex";
 import useVuelidate from "@vuelidate/core";
-import {required, email, minLength, sameAs } from "@vuelidate/validators";
+import {required, email, minLength, sameAs, helpers } from "@vuelidate/validators";
 
 export default {
   name: 'Login',
@@ -99,7 +100,15 @@ export default {
     return {
       firstName: { required },
       lastName: { required },
-      email: { required, email },
+      email: { 
+        required, 
+        email,
+        isUnique: helpers.withAsync(async (email) => {
+          if (!email) return true;
+          const emailExists = await this.checkEmailExists(email);
+          return !emailExists;
+        })
+      },
       password1: { required, minLength: minLength(12) },
       password2: { sameAs: sameAs(this.password1) }
     }
@@ -133,7 +142,7 @@ export default {
       }
 
     },
-    ...mapActions("accounts", ["register"])
+    ...mapActions("accounts", ["register", "checkEmailExists"])
   }
 
 }

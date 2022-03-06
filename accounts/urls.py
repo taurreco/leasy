@@ -14,7 +14,12 @@ from dj_rest_auth.registration.views import (
 
 from rest_framework.routers import DefaultRouter
 
-from .views import CustomUserViewSet, account_endpoints, confirm_email_view
+from .views import (
+    CustomUserViewSet,
+    account_endpoints,
+    confirm_email_view,
+    check_email_exists_view,
+)
 
 
 user_auth_urls = [
@@ -45,6 +50,8 @@ user_auth_urls = [
         confirm_email_view,
         name="account_confirm_email",
     ),
+    # checks if a specific email address exists
+    path("check-email-exists/", check_email_exists_view, name="check_email_exists"),
 ]
 
 router = DefaultRouter()
