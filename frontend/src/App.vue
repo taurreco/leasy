@@ -23,16 +23,25 @@
                 <a :href="href" class="nav-link" :class="{'active': isActive}">Contact</a>
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="!getCurrentUser">
               <router-link to="/login" custom v-slot="{ href, isActive }">
-                <a :href="href" class="nav-link" :class="{'active': isActive}"><span class="rounded bg-primary text-light p-2">Log in</span></a>
+                <a :href="href" class="nav-link" :class="{'active': isActive}">
+                  <span class="rounded bg-primary text-light p-2">Log in</span>
+                </a>
               </router-link>
+            </li>
+            <li class="nav-item" v-else>
+              <a @click.prevent="logoutUser" href="" class="nav-link">
+                <span class="rounded bg-primary text-light p-2">Log out</span>
+              </a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <main class="container-fluid vh-100">
+      <router-view></router-view>
+    </main>
     <footer class="bg-dark container-fluid text-light position-absolute bottom-0">
       <p class="text-center m-0 p-2">&copy; Leasy. All rights reserved.</p>
     </footer>
@@ -40,8 +49,25 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from "vuex";
+
 export default {
   name: 'App',
+  async mounted() {
+    await this.loadEndpoints();
+  },
+  computed: {
+    ...mapGetters("accounts", ["getCurrentUser"])
+  },
+  methods: {
+    async logoutUser() {
+      await this.logout();
+      this.setCurrentUser(null);
+      this.setEndpointCurrentUserDetail("");
+    },
+    ...mapMutations("accounts", ["setCurrentUser", "setEndpointCurrentUserDetail"]),
+    ...mapActions("accounts", ["loadEndpoints", "logout"])
+  }
 }
 </script>
 
