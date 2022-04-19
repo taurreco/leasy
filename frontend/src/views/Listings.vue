@@ -1,7 +1,10 @@
 <template>
   <h1>Listings</h1>
-  <div v-for="listing in getListings">
-    {{listing.name}}
+  <div v-for="listing in getListings" :key="listing.id">
+    <h2>
+      {{listing.name}}
+    </h2>
+    <p>{{listing.desc}}</p>
   </div>
 </template>
 
