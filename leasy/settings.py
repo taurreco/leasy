@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     # local
     "accounts.apps.AccountsConfig",
+    "listings.apps.ListingsConfig", # new
 ]
 
 MIDDLEWARE = [

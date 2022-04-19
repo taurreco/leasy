@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from .views import frontend, api_redirect
+from django.urls import path, include
+
 
 api_urls = [
     path("", api_redirect),  # redirects "" to "docs/"
@@ -28,6 +30,7 @@ api_urls = [
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
     # accounts
     path("accounts/", include("accounts.urls")),
+    path("", include("listings.urls")),
 ]
 
 frontend_urls = [
