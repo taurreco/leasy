@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const LISTINGS_ENDPOINTS_ENDPOINT = "/api/v1/listings/endpoints/";
+const LISTINGS_ENDPOINTS_ENDPOINT = "/api/v1/endpoints/"; // TODO: Fix endpoint name
 
 const accounts = {
   namespaced: true,
@@ -44,7 +44,7 @@ const accounts = {
      * @param {Dict[]} listings 
      */
     setListings(state, listings) {
-        state.listings = listings;
+      state.listings = listings;
     }
   },
   actions: {
@@ -52,9 +52,9 @@ const accounts = {
       const endpoints = (await axios.get(LISTINGS_ENDPOINTS_ENDPOINT)).data;
       commit('setEndpointListings', endpoints["listings-list"]);
     },
-    async loadListings({commit, getters}) {
+    async loadListings({ commit, getters }) {
       const listings = (await axios.get(getters.getEndpointListings)).data;
-      commit('setListings', listings)
+      commit('setListings', listings);
     }
   }
 };
