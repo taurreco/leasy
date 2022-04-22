@@ -2,6 +2,7 @@ from django.db import models
 
 from accounts.models import CustomUser
 
+
 class Listing(models.Model):
 
     # temporary fields / organization ?
@@ -10,7 +11,7 @@ class Listing(models.Model):
     rent = models.IntegerField()
     move_in = models.CharField(max_length=250)
     move_out = models.CharField(max_length=250)
-    desc = models.CharField(max_length=40000)
+    description = models.CharField(max_length=40000)
     lister = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
