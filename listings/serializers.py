@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from .models import Listing
 
+from accounts.models import CustomUser
+
 
 class ListingSerializer(serializers.ModelSerializer):
+    lister = serializers.PrimaryKeyRelatedField(
+        queryset=CustomUser.objects.all(),
+    )
+
     class Meta:
         model = Listing
         fields = [
@@ -12,4 +18,5 @@ class ListingSerializer(serializers.ModelSerializer):
             "move_in",
             "move_out",
             "description",
+            "lister",
         ]
