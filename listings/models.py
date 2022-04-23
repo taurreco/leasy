@@ -38,7 +38,7 @@ class ListingImage(models.Model):
 
 
 class ListingBooking(models.Model):
-    """Dates that the listing is booked."""
+    """A specific booking of the listing."""
 
     listing = models.ForeignKey(
         Listing, on_delete=models.CASCADE, null=False, related_name="bookings"
