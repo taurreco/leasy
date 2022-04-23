@@ -44,7 +44,6 @@ def listings_endpoints(request):
     return Response(endpoints)
 
 
-# Create your views here.
 def frontend(request, resource, **kwargs):
     user_id = kwargs.get("uidb64")
     token = kwargs.get("token")
