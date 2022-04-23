@@ -59,7 +59,7 @@ router.register("users", CustomUserViewSet, basename="users")
 
 app_name = "accounts"
 urlpatterns = [
-    path("endpoints/", account_endpoints),
+    # path("endpoints/", account_endpoints),
     path("", include(user_auth_urls)),
     path("", include(router.urls)),
 ]
