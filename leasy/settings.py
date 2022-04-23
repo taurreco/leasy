@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     # local
     "accounts.apps.AccountsConfig",
-    "listings.apps.ListingsConfig", # new
+    "listings.apps.ListingsConfig",  # new
 ]
 
 MIDDLEWARE = [
@@ -211,6 +211,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = "static/"
 STATICFILES_DIRS = [BASE_DIR / "frontend/build/static"]
+
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
