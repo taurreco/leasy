@@ -2,7 +2,7 @@
 
 from django.urls import path, include
 
-from .views import ListingsViewSet, listings_endpoints
+from .views import ListingsViewSet
 
 from rest_framework.routers import DefaultRouter
 
