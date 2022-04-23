@@ -21,10 +21,6 @@ class Listing(models.Model):
     def __str__(self):
         return self.name
 
-    @property
-    def dates_booked(self):
-        Listing.objects.get(id=self.id)
-
 
 def listing_image_path(instance, image):
     """Returns the upload path for listing images."""
