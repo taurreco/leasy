@@ -18,12 +18,3 @@ class ListingsView(ListView):
 class ListingsViewSet(ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
-
-
-@api_view()
-def listings_endpoints(request):
-    endpoints = {
-        "listings-list": reverse("listings:listings-list"),
-    }
-
-    return Response(endpoints)

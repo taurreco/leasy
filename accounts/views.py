@@ -1,5 +1,4 @@
 from lib2to3.pgen2.parse import ParseError
-from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
 from django.urls import reverse
 

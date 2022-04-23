@@ -19,7 +19,7 @@ from django.views.generic import TemplateView
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from .views import frontend, api_redirect
+from .views import frontend, api_redirect, account_endpoints, listings_endpoints
 from django.urls import path, include
 
 
@@ -31,6 +31,9 @@ api_urls = [
     # accounts
     path("accounts/", include("accounts.urls")),
     path("", include("listings.urls")),
+    # endpoints
+    path("endpoints/accounts/", account_endpoints),
+    path("endpoints/listings/", listings_endpoints),
 ]
 
 frontend_urls = [

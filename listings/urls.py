@@ -12,7 +12,4 @@ router.register("listings", ListingsViewSet, basename="listings")
 app_name = "listings"
 urlpatterns = [
     path("", include(router.urls)),
-    path(
-        "endpoints/", listings_endpoints
-    ),  # TODO: endpoints/listings, endpoints/accounts
 ]
