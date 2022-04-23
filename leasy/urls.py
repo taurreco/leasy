@@ -51,5 +51,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include(api_urls), name="api"),
     path("", include(frontend_urls), {"resource": ""}),
-    path("<path:resource>", include(frontend_urls)),
+    path("<path:resource>/", include(frontend_urls)),
 ]
