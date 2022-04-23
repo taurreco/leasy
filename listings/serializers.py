@@ -11,12 +11,4 @@ class ListingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Listing
-        fields = [
-            "name",
-            "address",
-            "rent",
-            "move_in",
-            "move_out",
-            "description",
-            "lister",
-        ]
+        fields = ["name", "address", "rent", "description", "lister", "id"]
