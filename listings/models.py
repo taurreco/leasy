@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from accounts.models import CustomUser
 
@@ -6,11 +7,11 @@ from accounts.models import CustomUser
 class Listing(models.Model):
 
     # temporary fields / organization ?
+    created = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=250)
     address = models.CharField(max_length=250)
     rent = models.IntegerField()
-    move_in = models.CharField(max_length=250)
-    move_out = models.CharField(max_length=250)
     description = models.CharField(max_length=40000)
     lister = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
 
