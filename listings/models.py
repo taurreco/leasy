@@ -17,3 +17,13 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.name
+
+
+def listing_image_path(instance, image):
+    return f"images/listings/{instance.id}/{image}"
+
+
+class ListingImage(models.Model):
+    description = models.CharField(max_length=500)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=False)
+    image = models.ImageField(upload_to=listing_image_path)
