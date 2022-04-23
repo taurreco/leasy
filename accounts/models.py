@@ -6,7 +6,7 @@ from django.urls import reverse
 
 class CustomUser(AbstractUser):
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username"]
     # TODO figure out how to remove username as field
     username = models.CharField(unique=False, max_length=100)
     email = models.EmailField(("email address"), unique=True)
@@ -16,4 +16,4 @@ class CustomUser(AbstractUser):
 
     @property
     def api_detail_url(self):
-        return reverse("accounts:users-detail", args=[self.slug])
+        return reverse("accounts:users-detail", args=[self.id])
