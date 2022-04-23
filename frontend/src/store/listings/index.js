@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const LISTINGS_ENDPOINTS_ENDPOINT = "/api/v1/endpoints/"; // TODO: Fix endpoint name
+const LISTINGS_ENDPOINTS_ENDPOINT = "/api/v1/endpoints/listings/"; // TODO: Fix endpoint name
 
 const accounts = {
   namespaced: true,

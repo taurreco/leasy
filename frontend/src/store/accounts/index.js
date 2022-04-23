@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ACCOUNT_ENDPOINTS_ENDPOINT = "/api/v1/accounts/endpoints/";
+const ACCOUNT_ENDPOINTS_ENDPOINT = "/api/v1/endpoints/accounts/";
 
 const accounts = {
   namespaced: true,
